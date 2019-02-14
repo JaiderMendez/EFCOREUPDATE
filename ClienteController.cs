@@ -91,8 +91,13 @@ namespace TuSuperService.Controllers
             }
 
 
-           _context.Entry(Mapper.Map<Clientes>(clientes)).State = EntityState.Modified;
-           _context.Entry(Mapper.Map<Clientes>(clientes)).Property(x => x.Ctrl).IsModified = false;
+           //_context.Entry(Mapper.Map<Clientes>(clientes)).State = EntityState.Modified;
+           //_context.Entry(Mapper.Map<Clientes>(clientes)).Property(x => x.Ctrl).IsModified = false;
+            //Solucion
+             var thisRole = _context.Clientes.Where(r => r.Id.Equals(clientes.Id, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            _context.Clientes.Attach(thisRole);
+            thisRole.NumeroEnvios = clientes.NumeroEnvios;
+            
             try
             {
              
